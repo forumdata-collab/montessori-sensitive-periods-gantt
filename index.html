@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>兒童發展敏感期互動甘特圖 | 蒙特梭利育兒指南</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans TC"', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            },
+            warm: {
+              50: '#fffbf5',
+              100: '#fef3e2',
+              200: '#fde5be',
+              500: '#f59e0b',
+              800: '#92400e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Noto Sans TC', Inter, system-ui, sans-serif;
+      background-color: #faf9f6;
+      color: #1e293b;
+    }
+
+    /* Custom range slider styling */
+    input[type=range]::-webkit-slider-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: #0ea5e9;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      -webkit-appearance: none;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #0284c7;
+    }
+    input[type=range]::-moz-range-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: #0ea5e9;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    /* Timeline Indicator Line */
+    .timeline-indicator-line {
+      pointer-events: none;
+      transition: left 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Pulse animation for active peaks */
+    @keyframes subtle-pulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.88; transform: scaleY(1.04); }
+    }
+    .peak-pulse {
+      animation: subtle-pulse 3s infinite ease-in-out;
+    }
+
+    /* Scrollbar aesthetics */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-sky-200 selection:text-sky-900">
+
+  <!-- Top Navigation & Header -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 via-teal-400 to-amber-300 flex items-center justify-center shadow-md text-white font-bold text-xl">
+          🌱
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold text-slate-900 leading-tight">
+            兒童發展敏感期互動甘特圖
+          </h1>
+          <p class="text-xs text-slate-500">
+            基於蒙特梭利（Maria Montessori）與現代發展心理學理論
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btnQuickGuide" class="text-xs sm:text-sm px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-700 flex items-center gap-1.5 transition-colors">
+          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          什麼是敏感期？
+        </button>
+        <button id="btnPrint" class="text-xs sm:text-sm px-3 py-1.5 rounded-lg bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 flex items-center gap-1.5 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          列印/存檔
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Age Controller Hero Panel -->
+  <section class="bg-gradient-to-b from-sky-50/70 via-white to-transparent border-b border-slate-200/60 pb-6 pt-5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Age Slider Box -->
+      <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200/90 max-w-4xl mx-auto">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div>
+            <span class="inline-block text-xs font-semibold uppercase tracking-wider text-sky-600 bg-sky-100/70 px-2.5 py-0.5 rounded-full mb-1">
+              互動觀測時光機
+            </span>
+            <h2 class="text-lg font-bold text-slate-800">
+              選擇或滑動孩子的年齡
+            </h2>
+          </div>
+
+          <!-- Current Age Value Display Display Badge -->
+          <div class="flex items-center gap-3 bg-slate-900 text-white px-5 py-2.5 rounded-2xl shadow-inner">
+            <div class="text-right">
+              <div class="text-xs text-slate-400 font-medium">當前觀測年齡</div>
+              <div class="text-xl sm:text-2xl font-black tracking-tight text-amber-300" id="ageDisplayBig">
+                2 歲 6 個月
+              </div>
+            </div>
+            <div class="h-8 w-px bg-slate-700"></div>
+            <div class="text-xs text-slate-300 font-mono" id="monthsDisplay">
+              30 個月大
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider Track -->
+        <div class="relative px-2 pt-3 pb-2">
+          <input 
+            type="range" 
+            id="ageSlider" 
+            min="0" 
+            max="7" 
+            step="0.08333" 
+            value="2.5" 
+            class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer focus:outline-hidden"
+          >
+
+          <!-- Slider Milestones Ticks -->
+          <div class="flex justify-between text-xs font-semibold text-slate-400 mt-2 px-1 selection:bg-transparent">
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(0)">0歲 (新生兒)</span>
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(1)">1歲</span>
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(2)">2歲 (自立初萌)</span>
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(3)">3歲 (幼兒園)</span>
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(4)">4歲</span>
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(5)">5歲</span>
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(6)">6歲 (小學階段)</span>
+            <span class="hover:text-sky-600 cursor-pointer" onclick="setAge(7)">7歲</span>
+          </div>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
+          <span class="text-xs font-medium text-slate-500 mr-1 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            快速焦點：
+          </span>
+          <button class="preset-btn text-xs px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 transition" onclick="setAge(0.5)">
+            6個月（口唇摸索）
+          </button>
+          <button class="preset-btn text-xs px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 transition" onclick="setAge(1.2)">
+            1歲2月（學步與微物）
+          </button>
+          <button class="preset-btn text-xs px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-800 font-medium transition" onclick="setAge(2.0)">
+            2歲（秩序與Trouble 2）
+          </button>
+          <button class="preset-btn text-xs px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 transition" onclick="setAge(3.0)">
+            3歲（社交與自我整合）
+          </button>
+          <button class="preset-btn text-xs px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 transition" onclick="setAge(4.5)">
+            4歲半（書寫與數字爆發）
+          </button>
+          <button class="preset-btn text-xs px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-700 text-slate-600 transition" onclick="setAge(5.5)">
+            5歲半（閱讀與邏輯幾何）
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Content Area: Gantt Chart + Active Age Analysis -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grow w-full space-y-8">
+
+    <!-- Category Filter Bar & Visual Legend -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200">
+      <!-- Category Tabs -->
+      <div class="flex flex-wrap items-center gap-1.5" id="categoryFilterGroup">
+        <button data-cat="all" class="cat-pill active px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 text-white shadow-xs transition">
+          全部領域 (14)
+        </button>
+        <button data-cat="motor" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition">
+          🏃‍♂️ 身體與動作 (3)
+        </button>
+        <button data-cat="sensory" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-amber-50 hover:text-amber-700 transition">
+          👀 感官與秩序 (3)
+        </button>
+        <button data-cat="language" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-sky-50 hover:text-sky-700 transition">
+          🗣️ 語言與讀寫 (3)
+        </button>
+        <button data-cat="social" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-rose-50 hover:text-rose-700 transition">
+          🤝 社交與情緒 (3)
+        </button>
+        <button data-cat="cognitive" class="cat-pill px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition">
+          🧩 數學與認知 (2)
+        </button>
+      </div>
+
+      <!-- Gantt Legend -->
+      <div class="flex items-center gap-4 text-xs text-slate-600 border-t md:border-t-0 pt-2 md:pt-0">
+        <div class="flex items-center gap-1.5">
+          <span class="w-3.5 h-3 rounded-sm bg-slate-200 border border-slate-300"></span>
+          <span>敏感過渡期</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3.5 h-3 rounded-sm bg-gradient-to-r from-amber-400 to-rose-500 shadow-xs"></span>
+          <span class="font-bold text-slate-800">🔥 爆發高峰期 (Peak)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-1.5 h-3.5 bg-rose-600 rounded-full"></span>
+          <span>當前所選歲數</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gantt Chart Card Container -->
+    <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
+      <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between flex-wrap gap-2">
+        <div>
+          <h2 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+            <span>蒙特梭利敏感期甘特時序圖</span>
+            <span class="text-xs font-normal text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">橫軸：0歲至7歲</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            點擊任一長條可查看深度教育行為解碼；紅色垂直指示線隨上方滑桿即時連動。
+          </p>
+        </div>
+        <div class="text-xs text-slate-400 font-mono hidden sm:block">
+          * 0歲 = 出生 | 刻度單位：半年 (6m)
+        </div>
+      </div>
+
+      <!-- Gantt Scroll Container -->
+      <div class="overflow-x-auto relative">
+        <div class="min-w-[780px] p-4 sm:p-6 select-none relative" id="ganttViewport">
+          
+          <!-- Timeline Scale Header -->
+          <div class="flex border-b border-slate-200 pb-3 mb-3 text-xs font-bold text-slate-600">
+            <!-- Left label column spacer -->
+            <div class="w-56 shrink-0 pr-4 text-slate-400 font-medium">敏感期名稱 / 發展維度</div>
+            <!-- Timeline Age Headers (0 to 7 years) -->
+            <div class="grow relative flex justify-between">
+              <div class="w-0 text-center font-mono">0歲</div>
+              <div class="w-0 text-center font-mono">1歲</div>
+              <div class="w-0 text-center font-mono">2歲</div>
+              <div class="w-0 text-center font-mono">3歲</div>
+              <div class="w-0 text-center font-mono">4歲</div>
+              <div class="w-0 text-center font-mono">5歲</div>
+              <div class="w-0 text-center font-mono">6歲</div>
+              <div class="w-0 text-center font-mono text-slate-400">7歲</div>
+            </div>
+          </div>
+
+          <!-- Vertical Background Grid Lines -->
+          <div class="absolute inset-y-12 right-4 sm:right-6 left-[240px] pointer-events-none z-0 flex justify-between opacity-30">
+            <div class="w-px bg-slate-300 h-full"></div>
+            <div class="w-px bg-slate-200 h-full border-dashed"></div>
+            <div class="w-px bg-slate-300 h-full"></div>
+            <div class="w-px bg-slate-200 h-full border-dashed"></div>
+            <div class="w-px bg-slate-300 h-full"></div>
+            <div class="w-px bg-slate-200 h-full border-dashed"></div>
+            <div class="w-px bg-slate-300 h-full"></div>
+            <div class="w-px bg-slate-200 h-full border-dashed"></div>
+          </div>
+
+          <!-- Dynamic Vertical Age Indicator Line across all rows -->
+          <div id="timelineCurrentLine" class="timeline-indicator-line absolute top-12 bottom-6 z-20 w-0.5 bg-rose-500 shadow-md">
+            <!-- Floating tag on top of the line -->
+            <div class="absolute -top-7 -translate-x-1/2 bg-rose-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md whitespace-nowrap flex items-center gap-1">
+              <span id="lineAgeBadge">2.5歲</span>
+              <div class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></div>
+            </div>
+          </div>
+
+          <!-- Gantt Rows Container (Rendered by JS) -->
+          <div id="ganttRowsContainer" class="space-y-3.5 relative z-10">
+            <!-- Inserted via Javascript -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Sensitive Periods at Selected Age -->
+    <section class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <h2 class="text-xl font-bold text-slate-800">
+              孩子在 <span class="text-sky-600" id="analysisAgeText">2 歲 6 個月</span> 的敏感期洞察
+            </h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+            當前共有 <span id="activeCountBadge" class="font-bold text-slate-900 bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md">0</span> 個敏感期正在發揮作用（其中 <span id="peakCountBadge" class="font-bold text-rose-600">0</span> 個正處於爆發高峰）
+          </p>
+        </div>
+
+        <!-- Filter toggle for insights -->
+        <div class="flex items-center gap-2 text-xs">
+          <label class="flex items-center gap-1.5 cursor-pointer text-slate-600">
+            <input type="checkbox" id="toggleOnlyPeak" class="rounded text-sky-600 focus:ring-sky-500">
+            <span>僅顯示高峰期項目</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Active Cards Grid -->
+      <div id="activeCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Injected by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Montessori Parenting Mindset Accordion & Wisdom -->
+    <section class="bg-gradient-to-br from-amber-50/60 via-warm-50 to-emerald-50/40 rounded-2xl p-6 border border-amber-200/60 space-y-4">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-md text-2xl">
+          💡
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-slate-900">
+            蒙特梭利博士的敏感期箴言（Parenting Wisdom）
+          </h3>
+          <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+            「敏感期是自然賦予幼兒的生命特權。在敏感期內，兒童以一種不可思議的活力和熱情，去吸收環境中的一切。一旦錯過這個特殊的感應時期，學習就需要耗費成倍的心力與意志。」
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs text-slate-700">
+        <div class="bg-white/80 p-3.5 rounded-xl border border-amber-100">
+          <span class="font-bold text-amber-800 text-sm block mb-1">1. 不是不聽話，是秩序在呼喚</span>
+          <p class="text-slate-600">
+            2歲左右孩子因鞋子沒放正、杯子被換了就尖叫大哭，並非任性，而是「秩序敏感期」遭遇破壞引起的內在焦慮。
+          </p>
+        </div>
+        <div class="bg-white/80 p-3.5 rounded-xl border border-amber-100">
+          <span class="font-bold text-amber-800 text-sm block mb-1">2. 準備好的環境大於說教</span>
+          <p class="text-slate-600">
+            與其不斷制止孩子摸小碎屑或爬高，不如提供安全的「微小豆子夾取」與安全的攀爬軟墊，主動滿足敏感期渴望。
+          </p>
+        </div>
+        <div class="bg-white/80 p-3.5 rounded-xl border border-amber-100">
+          <span class="font-bold text-amber-800 text-sm block mb-1">3. 尊重節奏，避免過度代勞</span>
+          <p class="text-slate-600">
+            「讓我自己來！」是動作與自立敏感期最具代表性的訊號。請給孩子足夠的時間穿鞋、倒水，多等待10秒。
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sensitive Period Detail Modal -->
+  <div id="detailModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 transform scale-95 transition-transform duration-200" id="modalCard">
+      
+      <!-- Modal Header -->
+      <div class="sticky top-0 bg-white/95 backdrop-blur-md px-6 py-4 border-b border-slate-100 flex items-center justify-between z-10">
+        <div class="flex items-center gap-3">
+          <span id="modalIcon" class="text-3xl p-2 bg-slate-100 rounded-xl">🗣️</span>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="modalTitle" class="text-xl font-bold text-slate-900">敏感期名稱</h3>
+              <span id="modalCategoryTag" class="text-xs px-2.5 py-0.5 rounded-full font-medium bg-sky-100 text-sky-800">類別</span>
+            </div>
+            <p id="modalAgeRange" class="text-xs font-mono text-slate-500 mt-0.5">持續年齡：0 ~ 6 歲 | 高峰期：1.5 ~ 3 歲</p>
+          </div>
+        </div>
+        <button id="modalCloseBtn" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-5 text-slate-700 text-sm">
+        
+        <!-- Behavior Signals -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/80">
+          <h4 class="font-bold text-slate-900 flex items-center gap-2 mb-2">
+            <span class="text-rose-500">🔍</span> 典型的行為訊號（孩子是怎麼表現的？）
+          </h4>
+          <p id="modalBehaviors" class="text-slate-600 leading-relaxed">
+            -
+          </p>
+        </div>
+
+        <!-- Psychological Reason -->
+        <div>
+          <h4 class="font-bold text-slate-900 flex items-center gap-2 mb-2">
+            <span class="text-amber-500">🧠</span> 行為背後的發展密碼（孩子在建構什麼？）
+          </h4>
+          <p id="modalPsychology" class="text-slate-600 leading-relaxed">
+            -
+          </p>
+        </div>
+
+        <!-- Parent Guidance (Do's and Don'ts) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200">
+            <h5 class="font-bold text-emerald-800 flex items-center gap-1.5 mb-1.5">
+              <span>✅</span> 建議引導（Do）
+            </h5>
+            <ul id="modalDos" class="text-xs text-emerald-900/90 space-y-1.5 list-disc list-inside">
+              <!-- JS inserted -->
+            </ul>
+          </div>
+          <div class="bg-rose-50/70 p-3.5 rounded-xl border border-rose-200">
+            <h5 class="font-bold text-rose-800 flex items-center gap-1.5 mb-1.5">
+              <span>❌</span> 應避免誤區（Don't）
+            </h5>
+            <ul id="modalDonts" class="text-xs text-rose-900/90 space-y-1.5 list-disc list-inside">
+              <!-- JS inserted -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Recommended Activities & Materials -->
+        <div class="bg-sky-50/60 p-4 rounded-xl border border-sky-200">
+          <h4 class="font-bold text-sky-900 flex items-center gap-2 mb-2">
+            <span>🎨</span> 推薦家庭蒙氏活動與環境準備
+          </h4>
+          <p id="modalActivities" class="text-xs sm:text-sm text-sky-800 leading-relaxed">
+            -
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-3 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button id="modalConfirmBtn" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-xl transition">
+          知道了，關閉
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Quick Guide Info Modal -->
+  <div id="guideModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 opacity-0 pointer-events-none transition-opacity">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold text-slate-900">什麼是「敏感期」？</h3>
+        <button id="guideCloseBtn" class="text-slate-400 hover:text-slate-600">✕</button>
+      </div>
+      <div class="text-xs sm:text-sm text-slate-600 space-y-2 leading-relaxed">
+        <p>
+          「敏感期」是意大利醫學博士兼教育家<strong>瑪麗亞·蒙特梭利（Maria Montessori）</strong>在長期觀察幼兒時發現的關鍵生物學現象。
+        </p>
+        <p>
+          在 0 至 6 歲期間，幼兒的大腦神經元突觸以驚人速度修剪與建構，孩子會在一特定時期對特定事物（如語言、秩序、微小物品、動作協調）產生<strong>強烈而不可抗拒的熱情與執著</strong>。
+        </p>
+        <p>
+          當敏感期的需求得到充分滿足，孩子能事半功倍地習得該項能力，並建立穩定的安全感與自信心；反之若常被打壓或阻礙，孩子可能出現劇烈情緒反彈或後續學習障礙。
+        </p>
+      </div>
+      <div class="pt-2 flex justify-end">
+        <button onclick="toggleGuideModal(false)" class="px-4 py-2 bg-sky-600 text-white text-xs font-semibold rounded-xl">了解了</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* Comprehensive Montessori Sensitive Periods Dataset */
+    const SENSITIVE_PERIODS_DATA = [
+      {
+        id: 'oral',
+        title: '口唇與口腔探索敏感期',
+        category: 'motor',
+        categoryName: '身體動作',
+        icon: '🍼',
+        color: '#10b981', // Emerald
+        startAge: 0.0,
+        endAge: 1.5,
+        peakStart: 0.3,
+        peakEnd: 1.0,
+        summary: '用嘴巴「認識」世界，吸吮手指、啃咬玩具、吐口水泡泡。',
+        behaviors: '見東西就抓起來塞進嘴巴；不停吃手吃腳；把堅硬的玩具放在牙齦上磨蹭；抗拒大人搶走咬著的東西。',
+        psychology: '嬰兒的口腔觸覺神經發育早於手指神經，口唇是新生兒探索物品材質、軟硬、形狀的第一感知器官，同時也是建立早期心理安全感的核心通道。',
+        dos: [
+          '確保環境與抓握玩具的清潔衛生與安全（防誤吞窒息）。',
+          '提供多樣質地的固齒器（矽膠、木質、冷感固齒器）供其咬嚼。',
+          '滿足吸吮需求，不要強行拔出或拍打孩子的手。'
+        ],
+        donts: [
+          '嚴厲斥責或恐嚇「髒！不准放嘴裡！」。',
+          '抹黃連、辣椒或給手塗怪味液體阻止吃手。',
+          '長時間提供小於喉嚨管徑的微小危險零件。'
+        ],
+        activities: '提供安全的手抓牙膠球、洗淨的胡蘿蔔條（在大人監護下）、不同布料質地的咬咬巾。'
+      },
+      {
+        id: 'gross-motor',
+        title: '大肌肉與行走動作敏感期',
+        category: 'motor',
+        categoryName: '身體動作',
+        icon: '🏃‍♂️',
+        color: '#059669',
+        startAge: 0.6,
+        endAge: 3.5,
+        peakStart: 1.0,
+        peakEnd: 2.2,
+        summary: '翻身、爬行、學步、攀爬、搬運重物，不斷突破身體極限。',
+        behaviors: '熱愛爬樓梯、走花圃邊緣窄道、爬上沙發背；執著於搬運比自己體重還重的水桶或箱子（Maximum Effort）。',
+        psychology: '孩子正經歷前庭覺、肌肉張力與本體感覺的整合。孩子不是「多動」，而是內在驅力在命令他：透過挑戰重力來掌握身體控制權。',
+        dos: [
+          '創造安全的攀爬與徒步環境（矮階梯、草地、小斜坡）。',
+          '給孩子機會搬運「有重量」的安全物品（如小西瓜、滿水的小水壺）。',
+          '出門散步時放下推車，跟隨孩子的緩慢步調。'
+        ],
+        donts: [
+          '過度依賴學步車或大人一直抱著不讓著地。',
+          '因害怕摔跤而全面禁止孩子攀爬探索。',
+          '用成人的快節奏催促走路慢吞吞的孩子。'
+        ],
+        activities: '戶外草地慢走、居家沙發墊障礙障礙賽、抱重物搬運遊戲、踩平衡線。'
+      },
+      {
+        id: 'fine-motor',
+        title: '精細動作與手指探索敏感期',
+        category: 'motor',
+        categoryName: '身體動作',
+        icon: '🤏',
+        color: '#047857',
+        startAge: 1.0,
+        endAge: 4.5,
+        peakStart: 1.5,
+        peakEnd: 3.2,
+        summary: '捏小碎屑、扣鈕扣、撕紙、轉瓶蓋，手指靈活度急速成熟。',
+        behaviors: '用大拇指和食指捏起地板上的頭髮；反覆開關抽屜或門鎖；撕餐巾紙撕成碎片；熱愛倒水、裝水、旋轉瓶蓋。',
+        psychology: '「手是智慧的工具」。手部神經在大腦皮質佔據極大投射面積，精細指尖運動直接刺激大腦神經元突觸的爆發式生長。',
+        dos: [
+          '提供不同尺寸的容器讓孩子進行「舀、倒、夾、穿」的練習。',
+          '給予安全的撕紙、剝水煮蛋殼、剝橘子皮等日常家務機會。',
+          '鼓勵用雙指捏取小饅頭或水果丁自主進食。'
+        ],
+        donts: [
+          '嫌孩子弄亂而完全禁止倒水玩水。',
+          '怕髒而全程餵飯，剝奪雙手抓握鍛鍊機會。',
+          '買全自動發光聲光玩具代替動手操作玩具。'
+        ],
+        activities: '三指抓握豆子倒杯、按壓滴管吸水、夾子夾毛球、大孔串珠、撕貼彩色紙。'
+      },
+      {
+        id: 'order',
+        title: '秩序敏感期（不可動搖的規律）',
+        category: 'sensory',
+        categoryName: '感官秩序',
+        icon: '📐',
+        color: '#d97706', // Amber
+        startAge: 1.0,
+        endAge: 4.0,
+        peakStart: 1.8,
+        peakEnd: 3.0,
+        summary: '物品擺放、作息順序、家人位置必須固定，否則崩潰大哭。',
+        behaviors: '媽媽穿了爸爸的拖鞋會大哭抗議；回家必須走同一條路線；鞋子必須放在特定的磁磚格子；睡前講故事流程必須分秒不差。',
+        psychology: '幼兒對世界感到陌生而不可預測，外在環境的「不變性」是他們建立心理安全感與空間定位座標的唯一錨點。外在混亂等於內在地震。',
+        dos: [
+          '家中物品保持固定歸位（提供矮櫃、專屬鞋位、玩具收納箱）。',
+          '建立規律穩定的作息流程（洗澡 -> 刷牙 -> 讀繪本 -> 關燈）。',
+          '尊重孩子的「復原」需求（如東西拿錯了，讓他放回去重新拿一次）。'
+        ],
+        donts: [
+          '嘲笑孩子「固執、龜毛、不可理喻」。',
+          '在孩子崩潰時斥責「這有什麼好哭的！」。',
+          '頻繁任意更動孩子的房間擺設與主要照料者。'
+        ],
+        activities: '玩具分類歸位收納、排隊配對玩具、幫忙依顏色擺放全家人的拖鞋。'
+      },
+      {
+        id: 'small-objects',
+        title: '細微事物與微小觀察敏感期',
+        category: 'sensory',
+        categoryName: '感官秩序',
+        icon: '🐜',
+        color: '#b45309',
+        startAge: 1.2,
+        endAge: 3.5,
+        peakStart: 1.5,
+        peakEnd: 2.6,
+        summary: '大人忽略的地板小蟲、細小線頭、地磚紋理，成為他的宇宙。',
+        behaviors: '在路邊蹲上20分鐘看一隻小螞蟻爬行；專注盯著大人衣服上的小線頭或小鈕扣；熱衷拾起地上的小石子或落葉。',
+        psychology: '兒童此時的微小視覺辨別能力急劇發展，其注意力的聚焦點與成人不同。這是專注力、耐心與科學觀察力孕育的起點。',
+        dos: [
+          '出門散步預留充足時間，停下腳步陪孩子蹲下來「一起觀察」。',
+          '引導孩子用放大鏡或透明觀察盒觀察大自然落葉與昆蟲。',
+          '肯定其敏銳的發現：「哇，你看到了這麼小的一隻小瓢蟲！」。'
+        ],
+        donts: [
+          '不耐煩地粗暴拉起孩子：「看這個幹嘛，髒死了快走！」。',
+          '隨意扔掉孩子辛苦撿拾的石頭、樹枝等「寶物」。',
+          '打斷正在極度專注觀察微小事物的孩子。'
+        ],
+        activities: '放大鏡探險、自然尋寶（收集不同形狀的松果落葉）、觀察植物葉脈。'
+      },
+      {
+        id: 'sensory-refinement',
+        title: '感官精緻化敏感期',
+        category: 'sensory',
+        categoryName: '感官秩序',
+        icon: '🎨',
+        color: '#92400e',
+        startAge: 0.5,
+        endAge: 5.5,
+        peakStart: 1.5,
+        peakEnd: 4.0,
+        summary: '對色彩、聲音、氣味、觸感極度敏感，分辨微小的感官差異。',
+        behaviors: '能辨識遠處微弱的救護車聲；挑剔衣服的標籤刺痛感；對特定食物的溫度或口感特別挑剔；著迷於按鍵發出的不同音調。',
+        psychology: '感官是思維的門戶。兒童透過視、聽、嗅、味、觸等感官刺激，在大腦建立分類、辨識與抽象思維的原型。',
+        dos: [
+          '提供真實豐富的自然感官材料（木頭、金屬、絲綢、粗糙麻布）。',
+          '剪掉幼兒內衣刺人的標籤，尊重其對觸覺的敏感反饋。',
+          '引導閉上眼睛辨識周圍聲音（風聲、鳥鳴、水滴）。'
+        ],
+        donts: [
+          '長時間讓孩子沉浸在平板螢幕的過度聲光刺激中。',
+          '強迫孩子吃他不喜歡其特殊黏膩質地的食物。'
+        ],
+        activities: '神秘觸覺袋（摸物盲猜）、音筒聽覺配對、色彩漸變色板排序、香氣聞香瓶。'
+      },
+      {
+        id: 'language',
+        title: '語言爆發與口語溝通敏感期',
+        category: 'language',
+        categoryName: '語言與讀寫',
+        icon: '🗣️',
+        color: '#0284c7', // Sky Blue
+        startAge: 0.2,
+        endAge: 6.0,
+        peakStart: 1.5,
+        peakEnd: 3.5,
+        summary: '從伊呀學語到單字爆發、詞彙積累，瘋狂模仿成人語氣。',
+        behaviors: '1歲半前後詞彙量突然指數增長；不斷問「這是什麼？」；熱衷自言自語碎碎唸；模仿大人的口吻批評玩具。',
+        psychology: '人類獨有的語言吸收心智（Absorbent Mind）。兒童大腦的語言區在此時擁有驚人的語法解碼能力，能無意識自然吸收母語結構。',
+        dos: [
+          '用清晰、標準、豐富的自然詞彙與孩子交談，減少疊字（如說「水杯」而非「喝水水」）。',
+          '每天堅持高品質親子共讀，引導孩子表達想法。',
+          '認真聆聽孩子的表達，給予充分等待，不搶話。'
+        ],
+        donts: [
+          '用電視、手機視頻代替真實人際的語言對話互動。',
+          '模仿或嘲弄孩子的結巴、發音不準（會造成開口恐懼）。',
+          '過度猜測孩子需求（他剛指水壺就馬上遞過去，剝奪說話機會）。'
+        ],
+        activities: '睡前繪本故事、看圖說話問答遊戲、兒歌韻律節奏律動、日常對話扮演。'
+      },
+      {
+        id: 'writing',
+        title: '書寫與符號探索敏感期',
+        category: 'language',
+        categoryName: '語言與讀寫',
+        icon: '✏️',
+        color: '#0369a1',
+        startAge: 3.5,
+        endAge: 5.5,
+        peakStart: 4.0,
+        peakEnd: 5.0,
+        summary: '著迷於拿筆塗鴉、模仿大人寫字、對文字符號產生狂熱興趣。',
+        behaviors: '在任何紙張（甚至牆壁）畫波浪線說自己「在寫信」；熱衷描摹數字與字母；主動要求大人教他寫自己的名字。',
+        psychology: '蒙特梭利發現「書寫先於閱讀」。孩子的手指肌肉與神經發展到一定階段，渴望將內在思維轉換為可視符號。',
+        dos: [
+          '提供多種安全筆具（三角粗鉛筆、粉筆、水彩筆）與大畫紙。',
+          '利用觸覺輔助（砂紙文字板、在沙盤中用手指描寫筆劃）。',
+          '讚賞孩子創造符號的熱情，而不拘泥於筆順是否完全標準。'
+        ],
+        donts: [
+          '在手部小肌肉未成熟時強迫枯燥機械抄寫作業。',
+          '過度批評「寫得太醜、歪歪扭扭」。'
+        ],
+        activities: '沙盤指尖描字、黏土捏造字母數字、磁性畫板自由書寫、給家人寫明信片。'
+      },
+      {
+        id: 'reading',
+        title: '自主閱讀與文字解碼敏感期',
+        category: 'language',
+        categoryName: '語言與讀寫',
+        icon: '📖',
+        color: '#075985',
+        startAge: 4.0,
+        endAge: 6.5,
+        peakStart: 4.5,
+        peakEnd: 5.8,
+        summary: '指讀招牌、著迷於把拼音/字母與讀音結合，享受破解密碼的快感。',
+        behaviors: '坐車時沿途大聲朗讀路標與招牌；自己拿著繪本一字一字指讀；主動拼讀包裝盒上的商品名稱。',
+        psychology: '孩子從單純的聽覺語言昇華到視聽結合的符號解析，進入獨立閱讀的世界，思維能力將迎來質的飛躍。',
+        dos: [
+          '家中設置溫馨低矮的圖書角，書本封面朝外展示。',
+          '將日常生活用品貼上大字標籤（如「冰箱」、「門」、「椅子」）。',
+          '保護孩子的閱讀成就感，陪他閱讀簡易分級讀物。'
+        ],
+        donts: [
+          '將閱讀變成考試（讀完隨即拷問「這本書教了你什麼道理？」）。',
+          '強行規定每日生字量，扼殺對書本的天然喜愛。'
+        ],
+        activities: '家庭圖書館借閱時光、字卡配對實物遊戲、自製個人生活小繪本。'
+      },
+      {
+        id: 'self-awareness',
+        title: '自我意識與執拗敏感期（Terrible Two）',
+        category: 'social',
+        categoryName: '社交情緒',
+        icon: '⚡',
+        color: '#e11d48', // Rose
+        startAge: 1.5,
+        endAge: 3.5,
+        peakStart: 2.0,
+        peakEnd: 3.0,
+        summary: '「不要！」、「我自己來！」自我獨立性的誕生陣痛期。',
+        behaviors: '凡事第一反應先說「不要！」；鞋子必須自己穿，大人幫忙就崩潰重來；情緒轉換極快，前一秒笑後一秒哭。',
+        psychology: '孩子第一次意識到「我和媽媽是獨立的個體」，他透過反對成人的意志來測試自己的邊界與掌控力，是心理走向獨立的必經里程碑。',
+        dos: [
+          '提供「有限的選擇題」（如：「今天想穿黃色還是藍色衣服？」）而非開放問題。',
+          '同理孩子的情緒而非對抗：「我知道你想自己穿鞋，我們把鞋脫下來重新來一次。」',
+          '給孩子足夠的時間自我嘗試。'
+        ],
+        donts: [
+          '硬碰硬大吼大叫或威脅：「你再說不要試試看！」。',
+          '給孩子貼上「叛逆、不乖、壞脾氣」的負面標籤。',
+          '無底線妥協規則（溫和而堅定）。'
+        ],
+        activities: '情緒小怪獸臉譜遊戲、自主穿脫鞋練習、生活自理小任務（倒垃圾、拿餐具）。'
+      },
+      {
+        id: 'peer-social',
+        title: '同伴交往與社會規則敏感期',
+        category: 'social',
+        categoryName: '社交情緒',
+        icon: '🤝',
+        color: '#be123c',
+        startAge: 2.5,
+        endAge: 6.0,
+        peakStart: 3.5,
+        peakEnd: 5.0,
+        summary: '從各玩各的（平行遊戲）過渡到渴望朋友、建立規則與分工。',
+        behaviors: '找固定玩伴；玩扮家家酒分工角色（你是媽媽我是醫生）；學會談判與輪流；對「公平」與「遊戲規則」極端在乎。',
+        psychology: '幼兒走出自我中心，開始感知他人視角與情感，學習在團體中妥協、協商、捍衛權益與建立友誼。',
+        dos: [
+          '創造規律的同齡玩伴互動機會（公園、遊樂場、同樂會）。',
+          '引導解決衝突的社交語言：「等他玩完，你可以問他能不能輪流」。',
+          '尊重孩子保護自己心愛玩具的權利，不強迫盲目分享。'
+        ],
+        donts: [
+          '當場斥責「你怎麼這麼小氣，快把玩具給弟弟！」。',
+          '在孩子發生輕微社交衝突時，大人立刻過度介入代為擺平。'
+        ],
+        activities: '角色扮演扮演遊戲、桌遊輪流等待遊戲、合作搭積木大城堡。'
+      },
+      {
+        id: 'grace-courtesy',
+        title: '社交禮儀與優雅行為敏感期',
+        category: 'social',
+        categoryName: '社交情緒',
+        icon: '🙏',
+        color: '#9f1239',
+        startAge: 2.5,
+        endAge: 5.5,
+        peakStart: 3.0,
+        peakEnd: 4.5,
+        summary: '熱衷模仿成人說請、謝謝、對不起，學習溫文爾雅的舉止。',
+        behaviors: '主動向進門的客人打招呼；提醒爸爸咳嗽要掩口；輕輕放椅子不發出噪音；渴望學習優雅端莊的用餐禮儀。',
+        psychology: '孩子渴望被承認是社會團體中受尊重的正式成員，對社群公認的美好行為規範充滿崇敬與模仿本能。',
+        dos: [
+          '父母以身作則，在家庭內部真誠常說「請、謝謝、對不起」。',
+          '示範具體動作（如何輕聲關門、如何雙手遞剪刀給別人）。',
+          '及時給予溫暖反饋：「謝謝你輕輕放下水杯，非常紳士。」'
+        ],
+        donts: [
+          '在親戚面前強拉著害羞的孩子逼他大聲叫人。',
+          '把說禮貌用語變成懲罰或說教。'
+        ],
+        activities: '示範正確遞接物品、倒茶禮儀招待客人、練習安靜走路與搬椅子。'
+      },
+      {
+        id: 'spatial-math',
+        title: '空間感知與幾何認知敏感期',
+        category: 'cognitive',
+        categoryName: '數學認知',
+        icon: '📦',
+        color: '#7c3aed', // Purple
+        startAge: 2.0,
+        endAge: 6.0,
+        peakStart: 3.0,
+        peakEnd: 4.8,
+        summary: '鑽紙箱、爬沙發縫隙、著迷於立體積木對稱與空間高矮順序。',
+        behaviors: '熱愛把自己塞進窄小的快遞紙箱；把積木疊得極高然後看它倒下；按照大小順序排列玩偶；著迷於地圖與迷宮路線。',
+        psychology: '大腦頂葉空間座標網絡快速成形。幼兒透過身體丈量空間，理解「裡外、上下、前後、容積、形狀」等幾何核心概念。',
+        dos: [
+          '留下大型乾淨紙箱讓孩子鑽爬改造為「秘密城堡」。',
+          '提供不同形狀的實木積木、磁力片與七巧板。',
+          '在生活中運用方位詞引導：「請幫我拿沙發『下面』的球」。'
+        ],
+        donts: [
+          '怕佔空間而嚴格限制搭建大積木。',
+          '過早強灌抽象幾何公式。'
+        ],
+        activities: '粉紅塔與棕色梯感官教具、手電筒影子形狀變換、走迷宮書、紙箱隧道。'
+      },
+      {
+        id: 'math-mind',
+        title: '數學心智與數量敏感期',
+        category: 'cognitive',
+        categoryName: '數學認知',
+        icon: '🔢',
+        color: '#6d28d9',
+        startAge: 3.5,
+        endAge: 6.5,
+        peakStart: 4.0,
+        peakEnd: 5.5,
+        summary: '從機械數數跨入真正理解「數量點數、配對、度量與守恆」。',
+        behaviors: '走樓梯時大聲數台階；分餅乾時嚴格數每人有幾塊；對數字大小、誰的比較多特別敏感；詢問「100後面是多少？」。',
+        psychology: '蒙特梭利提出幼兒具有天生的「數學心智（Mathematical Mind）」。此時透過具體實物操作，孩子能輕鬆建立強大的數感與邏輯思維。',
+        dos: [
+          '始終堅持「實物先行」（先數真實的蘋果、葡萄，再看抽象符號數字）。',
+          '在日常生活中應用數學（「請拿3個碗和4雙筷子」）。',
+          '讓孩子體驗度量工具（捲尺、廚房秤、量杯）。'
+        ],
+        donts: [
+          '盲目逼迫幼童死記硬背「九九乘法表」或加減心算法則。',
+          '否定孩子掰手指計算（手指是最直觀的具體數感工具）。'
+        ],
+        activities: '紡錘棒箱計數操作、數字砂紙板、廚房秤量食材烘焙、跳格子報數遊戲。'
+      }
+    ];
+
+    // Application State
+    let currentAge = 2.5; // default 2 years 6 months
+    let selectedCategory = 'all';
+    let onlyPeakFilter = false;
+
+    // DOM Elements
+    const ageSlider = document.getElementById('ageSlider');
+    const ageDisplayBig = document.getElementById('ageDisplayBig');
+    const monthsDisplay = document.getElementById('monthsDisplay');
+    const ganttRowsContainer = document.getElementById('ganttRowsContainer');
+    const timelineCurrentLine = document.getElementById('timelineCurrentLine');
+    const lineAgeBadge = document.getElementById('lineAgeBadge');
+    const analysisAgeText = document.getElementById('analysisAgeText');
+    const activeCountBadge = document.getElementById('activeCountBadge');
+    const peakCountBadge = document.getElementById('peakCountBadge');
+    const activeCardsContainer = document.getElementById('activeCardsContainer');
+    const toggleOnlyPeak = document.getElementById('toggleOnlyPeak');
+    const categoryFilterGroup = document.getElementById('categoryFilterGroup');
+    const ganttViewport = document.getElementById('ganttViewport');
+
+    // Modal elements
+    const detailModal = document.getElementById('detailModal');
+    const modalCard = document.getElementById('modalCard');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalConfirmBtn = document.getElementById('modalConfirmBtn');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalCategoryTag = document.getElementById('modalCategoryTag');
+    const modalAgeRange = document.getElementById('modalAgeRange');
+    const modalBehaviors = document.getElementById('modalBehaviors');
+    const modalPsychology = document.getElementById('modalPsychology');
+    const modalDos = document.getElementById('modalDos');
+    const modalDonts = document.getElementById('modalDonts');
+    const modalActivities = document.getElementById('modalActivities');
+
+    // Guide Modal
+    const guideModal = document.getElementById('guideModal');
+    const btnQuickGuide = document.getElementById('btnQuickGuide');
+    const guideCloseBtn = document.getElementById('guideCloseBtn');
+    const btnPrint = document.getElementById('btnPrint');
+
+    // Helper: Convert decimal age (e.g. 2.5) to formatted string "2 歲 6 個月"
+    function formatAgeText(age) {
+      const years = Math.floor(age);
+      const decimal = age - years;
+      const months = Math.round(decimal * 12);
+      if (years === 0) {
+        return `${months} 個月大`;
+      }
+      if (months === 0) {
+        return `${years} 歲整`;
+      }
+      if (months === 12) {
+        return `${years + 1} 歲整`;
+      }
+      return `${years} 歲 ${months} 個月`;
+    }
+
+    // Helper: Total months string
+    function formatTotalMonths(age) {
+      const totalMonths = Math.round(age * 12);
+      return `${totalMonths} 個月大`;
+    }
+
+    // Render the Gantt Chart rows
+    function renderGanttRows() {
+      ganttRowsContainer.innerHTML = '';
+
+      const filteredList = SENSITIVE_PERIODS_DATA.filter(item => {
+        if (selectedCategory === 'all') return true;
+        return item.category === selectedCategory;
+      });
+
+      filteredList.forEach(item => {
+        // Timeline total domain: 0 to 7 years
+        const totalSpan = 7.0;
+        
+        // Bar position percentages
+        const barLeftPct = (item.startAge / totalSpan) * 100;
+        const barWidthPct = ((item.endAge - item.startAge) / totalSpan) * 100;
+
+        // Peak period position inside this bar
+        const barDuration = item.endAge - item.startAge;
+        const peakOffsetDuration = item.peakStart - item.startAge;
+        const peakDuration = item.peakEnd - item.peakStart;
+
+        const peakLeftPct = (peakOffsetDuration / barDuration) * 100;
+        const peakWidthPct = (peakDuration / barDuration) * 100;
+
+        // Check active status at currentAge
+        const isActive = currentAge >= item.startAge && currentAge <= item.endAge;
+        const isPeak = currentAge >= item.peakStart && currentAge <= item.peakEnd;
+
+        // Row wrapper
+        const row = document.createElement('div');
+        row.className = `flex items-center group cursor-pointer transition-all duration-150 rounded-xl p-1.5 ${
+          isPeak ? 'bg-amber-50/70 border border-amber-200/80 shadow-xs' : (isActive ? 'bg-slate-50/80 border border-slate-200/50' : 'hover:bg-slate-50 opacity-75')
+        }`;
+        row.onclick = () => openDetailModal(item);
+
+        // Category Tag styles
+        let tagColor = 'bg-slate-100 text-slate-700';
+        if (item.category === 'motor') tagColor = 'bg-emerald-100 text-emerald-800';
+        if (item.category === 'sensory') tagColor = 'bg-amber-100 text-amber-800';
+        if (item.category === 'language') tagColor = 'bg-sky-100 text-sky-800';
+        if (item.category === 'social') tagColor = 'bg-rose-100 text-rose-800';
+        if (item.category === 'cognitive') tagColor = 'bg-purple-100 text-purple-800';
+
+        // Left Label Column
+        const labelCol = `
+          <div class="w-56 shrink-0 pr-4 flex items-center justify-between">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-xl shrink-0 p-1 bg-white rounded-lg shadow-xs border border-slate-100">${item.icon}</span>
+              <div class="truncate">
+                <div class="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-sky-600 transition truncate flex items-center gap-1.5">
+                  ${item.title}
+                  ${isPeak ? '<span class="text-[10px] bg-rose-500 text-white font-bold px-1.5 py-0.2 rounded-full shrink-0 animate-pulse">高峰</span>' : ''}
+                </div>
+                <div class="text-[11px] text-slate-400 font-mono">
+                  ${item.startAge} - ${item.endAge} 歲
+                </div>
+              </div>
+            </div>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md ${tagColor} shrink-0 hidden sm:inline-block">
+              ${item.categoryName}
+            </span>
+          </div>
+        `;
+
+        // Right Timeline Bar Column
+        const timelineCol = `
+          <div class="grow relative h-8 flex items-center bg-slate-100/70 rounded-lg px-0.5">
+            <!-- Full Sensitive Span Bar -->
+            <div 
+              class="absolute h-6 rounded-md flex items-center transition-all duration-200 overflow-hidden shadow-xs border ${
+                isActive 
+                  ? 'border-slate-300 ring-2 ring-sky-400/40' 
+                  : 'border-slate-200 opacity-60'
+              }"
+              style="left: ${barLeftPct}%; width: ${barWidthPct}%; background-color: ${item.color}22;"
+              title="${item.title}: ${item.startAge}歲 ~ ${item.endAge}歲"
+            >
+              <!-- Bar background striping/accent -->
+              <div class="h-full w-full relative">
+                <!-- Peak Highlight Band inside bar -->
+                <div 
+                  class="absolute top-0 bottom-0 rounded-xs flex items-center justify-center text-[10px] text-white font-bold shadow-xs transition-all ${isPeak ? 'peak-pulse' : ''}"
+                  style="left: ${peakLeftPct}%; width: ${peakWidthPct}%; background: linear-gradient(90deg, ${item.color}cc, ${item.color});"
+                  title="高峰期：${item.peakStart}歲 ~ ${item.peakEnd}歲"
+                >
+                  <span class="hidden md:inline-block drop-shadow-xs truncate px-1 text-[10px]">
+                    🔥 高峰 ${item.peakStart}-${item.peakEnd}歲
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        row.innerHTML = labelCol + timelineCol;
+        ganttRowsContainer.appendChild(row);
+      });
+
+      updateIndicatorPosition();
+    }
+
+    // Sync the vertical red indicator line according to currentAge
+    function updateIndicatorPosition() {
+      const totalYears = 7.0;
+      // Gantt left offset is 224px (w-56) plus padding
+      // Inside our layout, timeline col occupies from 224px to width-24px
+      const viewportWidth = ganttViewport.clientWidth;
+      const leftSpacerWidth = 224; // w-56 is 14rem = 224px
+      const timelineAvailableWidth = viewportWidth - leftSpacerWidth - 32; // subtracting padding
+
+      const ageRatio = Math.max(0, Math.min(1, currentAge / totalYears));
+      const pixelLeft = leftSpacerWidth + 16 + (ageRatio * timelineAvailableWidth);
+
+      timelineCurrentLine.style.left = `${pixelLeft}px`;
+      lineAgeBadge.textContent = `${currentAge.toFixed(1)} 歲`;
+    }
+
+    // Render the bottom dynamic cards based on selected age
+    function renderActiveCards() {
+      activeCardsContainer.innerHTML = '';
+      
+      analysisAgeText.textContent = formatAgeText(currentAge);
+
+      // Find all matching active items at this age
+      let activeList = SENSITIVE_PERIODS_DATA.filter(item => {
+        return currentAge >= item.startAge && currentAge <= item.endAge;
+      });
+
+      const peakList = activeList.filter(item => {
+        return currentAge >= item.peakStart && currentAge <= item.peakEnd;
+      });
+
+      // Update counters
+      activeCountBadge.textContent = activeList.length;
+      peakCountBadge.textContent = peakList.length;
+
+      // Filter by peak if toggled
+      if (onlyPeakFilter) {
+        activeList = peakList;
+      }
+
+      // If none active
+      if (activeList.length === 0) {
+        activeCardsContainer.innerHTML = `
+          <div class="col-span-full p-8 bg-white rounded-2xl border border-slate-200 text-center text-slate-400">
+            <div class="text-4xl mb-2">🎈</div>
+            <p class="font-medium text-slate-600">在此歲數區間暫無劇烈集中的早期敏感期</p>
+            <p class="text-xs mt-1">孩子可能正處於能力穩固與小學階段的理性邏輯建構期（第二發展階段：6-12歲文化與道德敏感期）。</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Sort: Peak periods first!
+      activeList.sort((a, b) => {
+        const aPeak = currentAge >= a.peakStart && currentAge <= a.peakEnd ? 1 : 0;
+        const bPeak = currentAge >= b.peakStart && currentAge <= b.peakEnd ? 1 : 0;
+        return bPeak - aPeak;
+      });
+
+      activeList.forEach(item => {
+        const isPeak = currentAge >= item.peakStart && currentAge <= item.peakEnd;
+
+        const card = document.createElement('div');
+        card.className = `bg-white rounded-2xl p-5 border transition-all duration-200 hover:shadow-md cursor-pointer flex flex-col justify-between ${
+          isPeak 
+            ? 'border-amber-300 ring-2 ring-amber-400/30 bg-gradient-to-br from-amber-50/30 via-white to-orange-50/20' 
+            : 'border-slate-200 hover:border-sky-300'
+        }`;
+        card.onclick = () => openDetailModal(item);
+
+        card.innerHTML = `
+          <div>
+            <!-- Card Header -->
+            <div class="flex items-start justify-between gap-2 mb-2.5">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl p-2 rounded-xl bg-slate-100 shadow-xs">${item.icon}</span>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm sm:text-base leading-snug hover:text-sky-600">
+                    ${item.title}
+                  </h4>
+                  <div class="text-[11px] text-slate-400 font-mono">
+                    全期: ${item.startAge}-${item.endAge}歲 | 高峰: ${item.peakStart}-${item.peakEnd}歲
+                  </div>
+                </div>
+              </div>
+              ${
+                isPeak 
+                  ? '<span class="text-[11px] px-2 py-0.5 rounded-full font-bold bg-rose-500 text-white flex items-center gap-1 shadow-xs"><span class="w-1.5 h-1.5 bg-white rounded-full animate-ping"></span>爆發高峰</span>'
+                  : '<span class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-slate-100 text-slate-600">進行中</span>'
+              }
+            </div>
+
+            <!-- Summary -->
+            <p class="text-xs text-slate-600 font-medium line-clamp-2 mb-3 bg-slate-50/80 p-2 rounded-lg">
+              ${item.summary}
+            </p>
+
+            <!-- Behaviors preview -->
+            <div class="text-xs text-slate-500 space-y-1">
+              <div class="font-semibold text-slate-700 flex items-center gap-1 text-[11px]">
+                <span class="text-amber-500">👀</span> 當前典型訊號：
+              </div>
+              <p class="text-slate-600 text-xs line-clamp-2 pl-3 border-l-2 border-slate-200">
+                ${item.behaviors}
+              </p>
+            </div>
+          </div>
+
+          <!-- Bottom Action Hint -->
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 font-medium">
+            <span class="text-sky-600 font-semibold flex items-center gap-1 hover:underline">
+              查看應對引導與教具指南 →
+            </span>
+            <span class="text-[11px] text-slate-400">${item.categoryName}</span>
+          </div>
+        `;
+
+        activeCardsContainer.appendChild(card);
+      });
+    }
+
+    // Synchronize everything when age changes
+    function updateAppAge(newAge) {
+      currentAge = Math.round(newAge * 100) / 100;
+      ageSlider.value = currentAge;
+      
+      // Update header badges
+      ageDisplayBig.textContent = formatAgeText(currentAge);
+      monthsDisplay.textContent = formatTotalMonths(currentAge);
+
+      // Rerender Gantt and Cards
+      renderGanttRows();
+      renderActiveCards();
+    }
+
+    // Set age from presets or tick clicks
+    function setAge(val) {
+      updateAppAge(val);
+    }
+
+    // Event listener on slider
+    ageSlider.addEventListener('input', (e) => {
+      updateAppAge(parseFloat(e.target.value));
+    });
+
+    // Toggle Peak Only Filter
+    toggleOnlyPeak.addEventListener('change', (e) => {
+      onlyPeakFilter = e.target.checked;
+      renderActiveCards();
+    });
+
+    // Category Filter Buttons
+    categoryFilterGroup.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cat-pill');
+      if (!btn) return;
+
+      document.querySelectorAll('.cat-pill').forEach(b => {
+        b.classList.remove('active', 'bg-slate-900', 'text-white');
+        b.classList.add('bg-slate-100', 'text-slate-600');
+      });
+
+      btn.classList.add('active', 'bg-slate-900', 'text-white');
+      btn.classList.remove('bg-slate-100', 'text-slate-600');
+
+      selectedCategory = btn.getAttribute('data-cat');
+      renderGanttRows();
+    });
+
+    // Open Detailed Modal
+    function openDetailModal(item) {
+      modalIcon.textContent = item.icon;
+      modalTitle.textContent = item.title;
+      modalCategoryTag.textContent = item.categoryName;
+      modalAgeRange.textContent = `全面發展視窗：${item.startAge} 歲 ~ ${item.endAge} 歲 | 敏感爆發高峰：${item.peakStart} 歲 ~ ${item.peakEnd} 歲`;
+      
+      modalBehaviors.textContent = item.behaviors;
+      modalPsychology.textContent = item.psychology;
+      modalActivities.textContent = item.activities;
+
+      // Dos list
+      modalDos.innerHTML = '';
+      item.dos.forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        modalDos.appendChild(li);
+      });
+
+      // Donts list
+      modalDonts.innerHTML = '';
+      item.donts.forEach(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        modalDonts.appendChild(li);
+      });
+
+      // Show modal
+      detailModal.classList.remove('opacity-0', 'pointer-events-none');
+      modalCard.classList.remove('scale-95');
+      modalCard.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetailModal() {
+      detailModal.classList.add('opacity-0', 'pointer-events-none');
+      modalCard.classList.remove('scale-100');
+      modalCard.classList.add('scale-95');
+      document.body.style.overflow = '';
+    }
+
+    modalCloseBtn.onclick = closeDetailModal;
+    modalConfirmBtn.onclick = closeDetailModal;
+    detailModal.onclick = (e) => {
+      if (e.target === detailModal) closeDetailModal();
+    };
+
+    // Guide Modal
+    function toggleGuideModal(show) {
+      if (show) {
+        guideModal.classList.remove('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = 'hidden';
+      } else {
+        guideModal.classList.add('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = '';
+      }
+    }
+    btnQuickGuide.onclick = () => toggleGuideModal(true);
+    guideCloseBtn.onclick = () => toggleGuideModal(false);
+    guideModal.onclick = (e) => {
+      if (e.target === guideModal) toggleGuideModal(false);
+    };
+
+    // Keyboard ESC listener
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDetailModal();
+        toggleGuideModal(false);
+      }
+    });
+
+    // Window resize observer to reposition timeline line correctly
+    window.addEventListener('resize', () => {
+      updateIndicatorPosition();
+    });
+
+    // Print functionality
+    btnPrint.onclick = () => {
+      window.print();
+    };
+
+    // Initialize on ready
+    window.addEventListener('DOMContentLoaded', () => {
+      updateAppAge(2.5); // Initialize at Trouble Two peak
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p class="font-medium text-slate-700">
+        兒童發展敏感期互動甘特圖 · 尊重生命自然發展的節奏
+      </p>
+      <p class="text-slate-400">
+        溫馨提示：每個孩子的內在發展鐘錶存在個體差異，年齡範圍為統計常模，請家長以細緻觀察取代機械對照。
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
