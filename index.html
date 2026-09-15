@@ -1053,7 +1053,7 @@
       const pixelLeft = leftSpacerWidth + 16 + (ageRatio * timelineAvailableWidth);
 
       timelineCurrentLine.style.left = `${pixelLeft}px`;
-      lineAgeBadge.textContent = `${currentAge.toFixed(1)} 歲`;
+      lineAgeBadge.textContent = formatAgeText(currentAge);
     }
 
     // Render the bottom dynamic cards based on selected age
